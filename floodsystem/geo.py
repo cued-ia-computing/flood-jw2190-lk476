@@ -17,6 +17,6 @@ def stations_by_distance(stations, p):
     distances = []
     #create unsorted list of (station,distance) tuples:
     for station in stations:
-        distances.append((station.station_id,haversine(p, station.coord)))
+        distances.append((station.name,haversine(p, station.coord)))
     #sort this list based on distance, lowest to highest and return:
     return sorted_by_key(distances,1)
