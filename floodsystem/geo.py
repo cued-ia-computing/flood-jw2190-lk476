@@ -20,3 +20,12 @@ def stations_by_distance(stations, p):
         distances.append((station.name,haversine(p, station.coord)))
     #sort this list based on distance, lowest to highest and return:
     return sorted_by_key(distances,1)
+
+def stations_within_radius(stations, centre, r):
+    """returns a list of all stations (type MonitoringStation) within a 
+    radius r (km) of a given centre (lat,lon)"""
+    stations_in_rad = []
+    for station in stations:
+        if haversine(centre, station.coord) <= r:
+            stations_in_rad.append(station)
+    return stations_in_rad
