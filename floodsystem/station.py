@@ -47,9 +47,9 @@ class MonitoringStation:
         else:
             return False
 
-    def inconsistent_typical_range_stations(stations):
-        inconsistent = []
-        for station in stations:
-            if station.typical_range_consistent == False:
-                inconsistent.append(station)
-        return inconsistent
+def inconsistent_typical_range_stations(stations):
+    inconsistent = []
+    for station in stations:
+        if station.typical_range_consistent == False:
+            inconsistent.append(station)
+    return inconsistent
