@@ -29,3 +29,10 @@ def stations_within_radius(stations, centre, r):
         if haversine(centre, station.coord) <= r:
             stations_in_rad.append(station)
     return stations_in_rad
+
+def rivers_with_station(stations):
+    """returns a list, from a given list of station objects, of river names with a monitoring station"""
+    rivers = []
+    for station in stations:
+        rivers.append(station.name)
+    return sorted_by_key(rivers,0)
