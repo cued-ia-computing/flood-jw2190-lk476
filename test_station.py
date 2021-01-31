@@ -5,6 +5,7 @@
 
 from floodsystem.station import MonitoringStation
 
+
 def test_create_monitoring_station():
 
     # Create a station
@@ -25,11 +26,12 @@ def test_create_monitoring_station():
     assert s.river == river
     assert s.town == town
 
+
 def test_inconsistent_typical_range_stations():
-    consistent = MonitoringStation("test-s-id","test-m-id", "consistent", (10,0),(0,10), "river", "town1")
-    inconsistent = MonitoringStation("test2-s-id","test2-m-id", "inconsistent", (0,50),(100,0), "river2", "town2")
-    inconsistent2 = MonitoringStation("test3-s-id","test3-m-id", "inconsistent2", (80,80),None, "river3", "town3")
-    stations = [consistent,inconsistent,inconsistent2]
+    consistent = MonitoringStation("test-s-id", "test-m-id", "consistent", (10, 0), (0, 10), "river", "town1")
+    inconsistent = MonitoringStation("test2-s-id", "test2-m-id", "inconsistent", (0, 50), (100, 0), "river2", "town2")
+    inconsistent2 = MonitoringStation("test3-s-id", "test3-m-id", "inconsistent2", (80, 80), None, "river3", "town3")
+    stations = [consistent, inconsistent, inconsistent2]
     inconsistentstations = []
     for station in stations:
         if station.typical_range_consistent() == False:

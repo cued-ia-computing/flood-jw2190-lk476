@@ -8,6 +8,7 @@ geographical data.
 from haversine import haversine
 from .utils import sorted_by_key  # noqa
 
+
 def stations_by_distance(stations, p):
     """stations=list of stations, p=coord in form (lat,long)   
     Given a list of station objects and a coordinate p, this function
@@ -15,11 +16,12 @@ def stations_by_distance(stations, p):
     is the distance of the station from coord p.
     """
     distances = []
-    #create unsorted list of (station,distance) tuples:
+    # create unsorted list of (station,distance) tuples:
     for station in stations:
-        distances.append((station.name,haversine(p, station.coord)))
-    #sort this list based on distance, lowest to highest and return:
-    return sorted_by_key(distances,1)
+        distances.append((station.name, haversine(p, station.coord)))
+    # sort this list based on distance, lowest to highest and return:
+    return sorted_by_key(distances, 1)
+
 
 def stations_within_radius(stations, centre, r):
     """returns a list of all stations (type MonitoringStation) within a 
@@ -30,9 +32,10 @@ def stations_within_radius(stations, centre, r):
             stations_in_rad.append(station)
     return stations_in_rad
 
+
 def rivers_with_station(stations):
     """returns a list, from a given list of station objects, of river names with a monitoring station"""
     rivers = []
     for station in stations:
         rivers.append(station.name)
-    return sorted_by_key(rivers,0)
+    return sorted_by_key(rivers, 0)
