@@ -37,8 +37,8 @@ def rivers_with_station(stations):
     """returns a list, from a given list of station objects, of river names with a monitoring station"""
     rivers = set() # build an empty set
 
-    for station in stations:
-        river = station[river]
+    for river.name in stations:
+        river = river.name
         rivers.add(river)
     return sorted(rivers)
 
@@ -47,4 +47,15 @@ def station_by_river(stations):
     for station in stations:
         river = station[river]
         rivers_station = {river: 'station'} 
-    return rivers_station
+    return sorted(rivers_station)
+
+def rivers_by_station_number(stations, N):
+    """Determines the N river swith the greatest number of monitoring stations"""
+    N=0
+    rivers = set()
+
+    for river.name in stations:
+        river = river.name
+        if river.name in rivers:
+            N += 1
+    return ('rivers', N)
