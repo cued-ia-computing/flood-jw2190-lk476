@@ -6,13 +6,9 @@ from floodsystem.stationdata import build_station_list
 
 def run():
     "Requirements for Task 1D"
-
     stations = build_station_list()  # build station list
-    rivers = []
-    for river in rivers_with_station(stations):
-        rivers.append(river.name)
-    rivers = sorted(rivers)
-    print(rivers)
+    for rivers in 
+    print(
 
 
 if __name__ == "__main__":
