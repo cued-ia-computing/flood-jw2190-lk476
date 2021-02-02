@@ -7,17 +7,18 @@ from floodsystem.stationdata import build_station_list
 def run():
     """Requirements for Task 1D"""
 
-    #build list of rivers with stations
+    #build list of stations
     stations = build_station_list()
 
     #print number of rivers with stations
-    print(rivers_with_station(stations))
     print("Number of rivers: {}".format(len(rivers_with_station(stations))))
 
     #print the first rivers in alphabetical order
     print(rivers_with_station(stations)[:10])
     
+    #print names of stations located on the river Aire in alphabetical order
     
+        
 
 if __name__ == "__main__":
     print("*** Task 1D: CUED Part 1A Flood Warning System ***")
