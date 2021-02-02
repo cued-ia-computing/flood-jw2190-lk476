@@ -17,6 +17,9 @@ def run():
     print(rivers_with_station(stations)[:10])
     
     #print names of stations located on the river Aire in alphabetical order
+    for station in station_by_river(stations):
+        if station.river in ['River Aire']:
+            print(station)
     
         
 
