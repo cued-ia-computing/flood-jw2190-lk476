@@ -45,22 +45,23 @@ def rivers_with_station(stations):
 def station_by_river(stations):
     """creates a dictionary that maps a river to stations that lie on it. 
     For a given river the output should be a list of stations"""
-    
+    rivers_station ={}
     for station in stations:
-        r = station.river
-        s = station.name
-        river_station = dict(zip(r, s))
-    return river_station
+        river = station.river
+        station = station.name
+        rivers_station[river] = station
+    return sorted(rivers_station)
 
 
 def rivers_by_station_number(stations, N):
     """Determines the N rivers with the greatest number 
     of monitoring stations in the form of a (river name, number of stations) tuple"""
     N = []
+    rivers = {}
     for station in stations:
         number = 0
-        rivers = station.river
-        if station.river in rivers:
-            number[station.river] += 1
-            N.append((station.river, number))
+        river = station.river
+        if  station.river in rivers:
+            number += 1
+            N.append((river, number))
     return sorted_by_key(N, 0)
