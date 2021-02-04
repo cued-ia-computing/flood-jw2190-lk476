@@ -18,11 +18,7 @@ def run():
     
     #print names of stations located on the river Aire in alphabetical order
     station = station_by_river(stations)
-    print(station.get('River Aire'))
-
-    print(station.get('River Cam'))
-
-    print(station.get('River Thames'))
+    print(station['River Aire'])
     
 if __name__ == "__main__":
     print("*** Task 1D: CUED Part 1A Flood Warning System ***")

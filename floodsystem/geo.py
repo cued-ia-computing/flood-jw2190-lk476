@@ -49,7 +49,10 @@ def station_by_river(stations):
     for station in stations:
         river = station.river
         station = station.name
-        rivers_station[river] = station
+        if river in rivers_station:
+            rivers_station[river].append(station)
+        else:
+            rivers_station[river] = [station]
     return rivers_station
 
 
