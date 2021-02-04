@@ -41,21 +41,26 @@ def rivers_with_station(stations):
         rivers.add(river)
     return sorted(rivers)
 
+
 def station_by_river(stations):
-    """creates a dictionary that maps river names to a list of stations on a given river"""
+    """creates a dictionary that maps a river to stations that lie on it. 
+    For a given river the output should be a list of stations"""
     
     for station in stations:
-        river = station.river
-        station = station.name
-        rivers_station = {river : station}
-    return sorted(rivers_station)
+        r = station.river
+        s = station.name
+        river_station = dict(zip(r, s))
+    return river_station
+
 
 def rivers_by_station_number(stations, N):
-    """Determines the N rivers with the greatest number of monitoring stations"""
-   
-    numbers = []
-    # create unsorted list of (river, number) tuples
+    """Determines the N rivers with the greatest number 
+    of monitoring stations in the form of a (river name, number of stations) tuple"""
+    N = []
     for station in stations:
-        river = station.river
-        numbers.append((river.name), numbers)
-    
+        number = 0
+        rivers = station.river
+        if station.river in rivers:
+            number[station.river] += 1
+            N.append((station.river, number))
+    return sorted_by_key(N, 0)
