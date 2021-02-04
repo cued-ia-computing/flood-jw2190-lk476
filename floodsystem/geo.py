@@ -45,12 +45,12 @@ def rivers_with_station(stations):
 def station_by_river(stations):
     """creates a dictionary that maps a river to stations that lie on it. 
     For a given river the output should be a list of stations"""
-    rivers_station ={}
+    rivers_station = {}
     for station in stations:
         river = station.river
         station = station.name
         rivers_station[river] = station
-    return sorted(rivers_station)
+    return rivers_station
 
 
 def rivers_by_station_number(stations, N):
