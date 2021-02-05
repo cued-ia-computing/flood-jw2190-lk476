@@ -16,9 +16,13 @@ def run():
     #print the first rivers in alphabetical order
     print(rivers_with_station(stations)[:10])
     
-    #print names of stations located on the river Aire in alphabetical order
+    #print names of stations located on the different rivers in alphabetical order
     station = station_by_river(stations)
-    print(station['River Aire'])
+    print("Stations on the River Aire: {}".format(sorted(station['River Aire'])))
+
+    print("Stations on the River Cam: {}".format(sorted(station['River Cam'])))
+    
+    print("Stations on the River Thames: {}".format(sorted(station['River Thames'])))
     
 if __name__ == "__main__":
     print("*** Task 1D: CUED Part 1A Flood Warning System ***")
