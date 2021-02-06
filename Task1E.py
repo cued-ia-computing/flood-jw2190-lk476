@@ -8,10 +8,12 @@ def run():
     
     #build list of stations
     stations = build_station_list()
-
-    #print the rivers that have more than 9 stations on them and state how many stations are on each as a tuple
+    
+    #print the 9 rivers that have the most stations and how many stations are on each in the form of a list of tuples
     rivers_station = rivers_by_station_number(stations, N = 10)
-
+    for i in rivers_station:
+        if rivers_station[0][i] == rivers_station[0][i+1]:
+            N += 1
     print("9 rivers with the most stations are: {}".format(rivers_station))
 
 if __name__ == "__main__":

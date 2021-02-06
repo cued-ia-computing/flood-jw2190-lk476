@@ -60,11 +60,13 @@ def rivers_by_station_number(stations, N):
     """Determines the N rivers with the greatest number 
     of monitoring stations in the form of a (river name, number of stations) tuple"""
     rivers = {}
+    
     for station in stations:
         river = station.river
         if river in rivers:
             rivers[river] = rivers[river] + 1
         else:
             rivers[river] = 1
+
     return sorted(rivers.items(),key = lambda x: x[1], reverse=True)[:N]
         
