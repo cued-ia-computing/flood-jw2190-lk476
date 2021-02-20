@@ -28,6 +28,7 @@ class MonitoringStation:
         self.town = town
 
         self.latest_level = None
+        
 
     def __repr__(self):
         d = "Station name:     {}\n".format(self.name)
@@ -47,11 +48,20 @@ class MonitoringStation:
         else:
             return False
 
-def relative_water_level(self):
-        """returns the latest water level as a frction of the typical range"""
-        
-        self.relative_water_level = self.measure_id / self.typical_range
-        return self.relative_water_level
+    def relative_water_level(self):
+        """returns the latest water level as a fraction of the typical range"""
+        self.relative_level = None
+        if self.latest_level == self.typical_range[0]:
+            self.relative_level = 0
+            return self.relative_level
+
+        elif self.latest_level == self.typical_range[1]:
+            self.relative_level = 1.0
+            return self.relative_level
+
+        else:
+            self.relative_level = self.latest_level / self.typical_range[1]
+            return self.relative_level
 
 
 def inconsistent_typical_range_stations(stations):
