@@ -50,19 +50,21 @@ class MonitoringStation:
 
     def relative_water_level(self):
         """returns the latest water level as a fraction of the typical range"""
-        print(self.typical_range)
         self.relative_level = None
-        if self.latest_level == self.typical_range[0]:
-            self.relative_level = 0
-            return self.relative_level
+        if self.latest_level != None: #ignores stations that have a latest level reading of None
+            if self.latest_level == self.typical_range[0]:
+                self.relative_level = 0
+                return self.relative_level
 
-        elif self.latest_level == self.typical_range[1]:
-            self.relative_level = 1.0
-            return self.relative_level
+            elif self.latest_level == self.typical_range[1]:
+                self.relative_level = 1.0
+                return self.relative_level
 
+            else:
+                self.relative_level = self.latest_level / self.typical_range[1]
+                return self.relative_level
         else:
-            self.relative_level = self.latest_level / self.typical_range[1]
-            return self.relative_level
+            print("station with latest level of None found")
 
 
 def inconsistent_typical_range_stations(stations):
@@ -73,8 +75,23 @@ def inconsistent_typical_range_stations(stations):
     return inconsistent
 
 def consistent_typical_range_stations(stations):
+    """removes stations with inconsistent typical ranges"""
     consistent = []
+    removed = 0
     for station in stations:
         if station.typical_range_consistent() == True:
             consistent.append(station)
+        else: removed +=1
+    print(f'inconsistent typical range stations removed: {removed}')
     return consistent
+
+def remove_latest_level_nonetype(stations):
+    """removes all stations in a list that have a latest_level of None."""
+    tosend = []
+    removed  = 0
+    for station in stations:
+        if station.latest_level != None:
+            tosend.append(station)
+        else: removed +=1
+    print(f'latest_level of None removed: {removed}')
+    return tosend
