@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from datetime import datetime
+from floodsystem.analysis import polyfit
 
 def plot_water_levels(station_levels_list):
     '''plots water level data and typical low and high for up to 6 different stations.
@@ -19,4 +20,22 @@ def plot_water_levels(station_levels_list):
         plt.title(station.name)
         plt.xticks(rotation=20)
         plt.tight_layout(h_pad=0.00001)
+    plt.show()
+
+
+def plot_water_level_with_fit(station, dates, levels, p):
+    """Plots the water level and the best fit polynomial"""
+    typical_low = [station.typical_range[0]]*len(dates)
+    typical_high = [station.typical_range[1]]*len(dates)
+
+    #create plots
+    plt.plot(dates, levels, label='Water Levels')
+    plt.plot(dates, typical_low, label='Typical Low')
+    plt.plot(dates, typical_high, label='Typical_high')
+    
+
+    plt.legend()
+    plt.title(station.name)
+    plt.xticks(rotation=20)
+    plt.tight_layout(h_pad=0.00001)
     plt.show()
