@@ -43,6 +43,8 @@ class MonitoringStation:
     def typical_range_consistent(self):
         if self.typical_range == None:
             return False
+        elif self.typical_range[0] < 0 or self.typical_range[1]<0:
+            return False
         elif self.typical_range[0] < self.typical_range[1]:
             return True
         else:

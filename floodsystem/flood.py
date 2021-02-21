@@ -21,7 +21,7 @@ def stations_highest_rel_level(stations, N):
         relative_levels.append((station,station.relative_water_level()))
     relative_levels = sorted_by_key(relative_levels,1,reverse=True)
     for i in range(N):
-        stations_tosend.append(relative_levels[i])
+        stations_tosend.append(relative_levels[i][0])
     return stations_tosend
     '''
     water_levels = set()
