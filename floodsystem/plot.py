@@ -31,9 +31,9 @@ def plot_water_level_with_fit(station, dates, levels, p):
     #create plots
     plt.plot(dates, levels, label='Water Levels')
     plt.plot(dates, typical_low, label='Typical Low')
-    plt.plot(dates, typical_high, label='Typical_high')
-    
-
+    plt.plot(dates, typical_high, label='Typical high')
+    plt.plot(polyfit[0], polyfit[1], label='Polynomial fit')
+        
     plt.legend()
     plt.title(station.name)
     plt.xticks(rotation=20)
