@@ -17,8 +17,9 @@ def run():
     toplot = []
     for station in highest_rellevel_stations:
         dates, levels = fetch_measure_levels(station.measure_id,datetime.timedelta(days=dt))
-        toplot.append((station,dates,levels))
-        
+        for level in levels:
+        print(len(levels))
+        toplot.append((station,dates,levels))   
     plot_water_levels(toplot)
 
 
