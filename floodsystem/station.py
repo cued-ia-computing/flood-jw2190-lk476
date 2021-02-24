@@ -68,6 +68,28 @@ class MonitoringStation:
         else:
             print("station with latest level of None found")
 
+    def flood_risk(self):
+        """Returns the flood risk level of each station based on the relative water level"""
+        if self.relative_level != None:
+            if self.relative_level >= 2:
+                self.flood_risk == "severe risk"
+                return self.flood_risk
+
+            elif self.relative_level >= 1 and self.relative_level < 2:
+                self.flood_risk == "high risk"
+                return self.flood_risk
+
+            elif self.relative_level >= 0.75 and self.relative_level < 1:
+                self.flood_risk == "moderate risk"
+                return self.flood_risk
+
+            else:
+                self.flood_risk == "low risk"
+                return self.flood_risk
+        
+        else:
+            print("Station with latest level of None found")
+
 
 def inconsistent_typical_range_stations(stations):
     inconsistent = []

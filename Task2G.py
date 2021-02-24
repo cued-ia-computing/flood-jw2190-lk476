@@ -17,8 +17,16 @@ def run():
     stations = consistent_typical_range_stations(stations)
     stations = remove_latest_level_nonetype(stations)
 
-    """To look at the risk of flooding I have created a function that compares the current water level against 
-    yesterdays water level. Then I have categorised the increase into 4 groups to show the associated risk"""
+    """I have added a function to station so that it gives a risk level for each station based of 
+    the relative water level"""  
 
+    #Gather the 10 stations with the highest relative water level
+    highest_rellevel_stations = stations_highest_rel_level(stations,N=10)
     
-    
+    for station in highest_rellevel_stations:
+        print(f'{station.town} {station.flood_risk()}')
+
+
+if __name__ == "__main__":
+    print("*** Task 2G: CUED Part 1A Flood Warning System ***")
+    run()
