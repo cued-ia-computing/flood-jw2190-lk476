@@ -1,5 +1,5 @@
 from floodsystem.analysis import polyfit
-from floodsystem.plot import plot_water_level_with_fit
+from floodsystem.plot import plot_water_level_with_fit, plot_stations_on_map
 from floodsystem.station import consistent_typical_range_stations, remove_latest_level_nonetype
 from floodsystem.stationdata import build_station_list, update_water_levels
 from floodsystem.flood import stations_highest_rel_level
@@ -22,7 +22,12 @@ def run():
 
     #Gather the 10 stations with the highest relative water level
     highest_rellevel_stations = stations_highest_rel_level(stations,N=10)
-    
+    risks = []
+    for station in highest_rellevel_stations:
+        risks.append(station.flood_risk())
+    stations_risks = zip(highest_rellevel_stations,risks)
+    plot_stations_on_map(stations_risks)
+
     for station in highest_rellevel_stations:
         print(f'{station.town} {station.flood_risk()}')
 

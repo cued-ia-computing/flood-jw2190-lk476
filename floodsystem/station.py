@@ -72,20 +72,14 @@ class MonitoringStation:
         """Returns the flood risk level of each station based on the relative water level"""
         if self.relative_level != None:
             if self.relative_level >= 2:
-                self.flood_risk == "severe risk"
-                return self.flood_risk
-
+                return "severe risk"                
             elif self.relative_level >= 1 and self.relative_level < 2:
-                self.flood_risk == "high risk"
-                return self.flood_risk
-
+                return "high risk"               
             elif self.relative_level >= 0.75 and self.relative_level < 1:
-                self.flood_risk == "moderate risk"
-                return self.flood_risk
-
+                return "moderate risk"               
             else:
-                self.flood_risk == "low risk"
-                return self.flood_risk
+                return "low risk"
+                
         
         else:
             print("Station with latest level of None found")
