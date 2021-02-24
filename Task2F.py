@@ -23,10 +23,15 @@ def run():
         #will remove any data points in levels that are not floats
         correct_levels = []
         correct_dates = []
+        removed = 0
         for pair in zip(levels,dates):
             if isinstance(pair[0],float):
                 correct_levels.append(pair[0])
                 correct_dates.append(pair[1])
+            else:
+                removed+=1
+        if removed > 0:
+            print(f"{removed} error points out of {len(levels)} removed for {station.name}")
         plot_water_level_with_fit(station, correct_dates, correct_levels, 4)            
             
         

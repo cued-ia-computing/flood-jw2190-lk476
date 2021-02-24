@@ -15,7 +15,6 @@ def plot_water_levels(station_levels_list):
         plt.subplot(locations[station_levels_list.index(entry)])
         typical_low = [station.typical_range[0]]*len(dates)
         typical_high = [station.typical_range[1]]*len(dates)
-        print(dates[:20])
         dates = np.array(dates)
         plt.plot(dates,levels,label='Water Levels')
         plt.plot(dates,typical_low,label='typical low')
@@ -46,3 +45,6 @@ def plot_water_level_with_fit(station, dates, levels, p):
     plt.title(station.name)
     plt.xticks(rotation=20)
     plt.show()
+
+
+
