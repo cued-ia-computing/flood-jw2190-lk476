@@ -46,32 +46,32 @@ def plot_water_level_with_fit(station, dates, levels, p):
     plt.xticks(rotation=20)
     plt.show()
 
-def plot_stations_on_map(stations_risks):
+def plot_stations_on_map(stations):
+    """plots stations on map. Any stations with a severe flood risk warning 
+    plot the name of the station on the map"""
     map_ = plt.imread("uk_map.jpg")
     plt.imshow(map_, extent=[-5.7,1.3,50,59])
-    stations, risks = zip(*stations_risks)
-    print(stations)
     x_coords = []
     y_coords = []
     names = []
     risk_level = []
+    reported_towns = []
     for station in stations:
         x_coords.append(station.coord[1])
         y_coords.append(station.coord[0])
         names.append(station.name)
-        #risk = station.flood_risk
         risk_level.append(station.flood_risk())
     for i in range(len(risk_level)):
         if risk_level[i] == 'severe risk':
-            print('entered')
-            plt.plot(x_coords[i],y_coords[i],'ko')
+            plt.plot(x_coords[i],y_coords[i],'k.')
+            if stations[i].town not in reported_towns:
+                reported_towns.append(stations[i].town)
+                plt.annotate(stations[i].town,(x_coords[i],y_coords[i]),fontsize=7)
         elif risk_level[i] == 'high risk':
-            plt.plot(x_coords[i],y_coords[i],'ro')
+            plt.plot(x_coords[i],y_coords[i],'r.')
         elif risk_level[i] == 'moderate risk':
-            plt.plot(x_coords[i],y_coords[i],'yo')
+            plt.plot(x_coords[i],y_coords[i],'y.')
         elif risk_level[i] == 'low risk':
-            plt.plot(x_coords[i],y_coords[i],'go')
+            plt.plot(x_coords[i],y_coords[i],'g.')
         #plt.annotate(names[i],(x_coords[i],y_coords[i]),fontsize=7)
-    print(f'risk::::: {risk_level}')
-    #plt.scatter(x_coords,y_coords)
     plt.show()

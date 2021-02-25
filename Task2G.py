@@ -16,18 +16,15 @@ def run():
     #clean station data
     stations = consistent_typical_range_stations(stations)
     stations = remove_latest_level_nonetype(stations)
-
+    print(len(stations))
+    
     """I have added a function to station so that it gives a risk level for each station based of 
     the relative water level"""  
 
     #Gather the 10 stations with the highest relative water level
+    highest_rellevel_stations = stations_highest_rel_level(stations,N=1900)
+    plot_stations_on_map(highest_rellevel_stations)
     highest_rellevel_stations = stations_highest_rel_level(stations,N=10)
-    risks = []
-    for station in highest_rellevel_stations:
-        risks.append(station.flood_risk())
-    stations_risks = zip(highest_rellevel_stations,risks)
-    plot_stations_on_map(stations_risks)
-
     for station in highest_rellevel_stations:
         print(f'{station.town} {station.flood_risk()}')
 
