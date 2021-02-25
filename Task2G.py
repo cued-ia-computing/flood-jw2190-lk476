@@ -4,6 +4,7 @@ from floodsystem.station import consistent_typical_range_stations, remove_latest
 from floodsystem.stationdata import build_station_list, update_water_levels
 from floodsystem.flood import stations_highest_rel_level
 from floodsystem.datafetcher import fetch_measure_levels
+from floodsystem.flood import flood_risk
 import datetime
 
 def run():
@@ -22,11 +23,11 @@ def run():
     the relative water level"""  
 
     #Gather the 10 stations with the highest relative water level
-    highest_rellevel_stations = stations_highest_rel_level(stations,N=1900)
+    highest_rellevel_stations = stations_highest_rel_level(stations,N=50)
     plot_stations_on_map(highest_rellevel_stations)
     highest_rellevel_stations = stations_highest_rel_level(stations,N=10)
     for station in highest_rellevel_stations:
-        print(f'{station.town} {station.flood_risk()}')
+        print(f'{station.town} {flood_risk(station)}')
 
 
 if __name__ == "__main__":

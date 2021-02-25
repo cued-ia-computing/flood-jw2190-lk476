@@ -2,7 +2,9 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mpldates
 from datetime import datetime
 from floodsystem.analysis import polyfit
+from .flood import flood_risk, increase_rate
 import numpy as np
+import matplotlib.patches as mpatches
 
 def plot_water_levels(station_levels_list):
     '''plots water level data and typical low and high for up to 6 different stations.
@@ -46,32 +48,87 @@ def plot_water_level_with_fit(station, dates, levels, p):
     plt.xticks(rotation=20)
     plt.show()
 
+
+
+
+
+def percent_to_hexcol(oned_perc_change):
+    """converts a percentage to a hexidecimal colour from green to red"""
+    hexes = []
+    for perc in oned_perc_change:
+        if perc < -40: hexes.append("#118f24")
+        elif perc < -20: hexes.append("#14f514")
+        elif perc < -10: hexes.append("#b9f514")
+        elif perc < 0: hexes.append("#edf514")
+        elif perc < 10: hexes.append("#f5c114")
+        elif perc < 20: hexes.append("#f57914")
+        elif perc < 40: hexes.append("#f53614")
+        elif perc < 60: hexes.append("#a61111")
+        elif perc < 80: hexes.append("#540606")
+    return hexes
+
+
 def plot_stations_on_map(stations):
     """plots stations on map. Any stations with a severe flood risk warning 
-    plot the name of the station on the map"""
+    plot the name of the station on the map. Higher risks will be placed in front of lower risks on the map"""
     map_ = plt.imread("uk_map.jpg")
-    plt.imshow(map_, extent=[-5.7,1.3,50,59])
-    x_coords = []
-    y_coords = []
+    plt.subplot(121)
+    plt.imshow(map_, extent=[-8,1.9,50,59])
     names = []
     risk_level = []
-    reported_towns = []
+    oned_perc_change = []
+    severe_risk_coords = [[],[]]
+    high_risk_coords = [[],[]]
+    med_risk_coords = [[],[]]
+    low_risk_coords = [[],[]]
+    towns_severe_risk = []
+    towns_high_risk = set()
     for station in stations:
-        x_coords.append(station.coord[1])
-        y_coords.append(station.coord[0])
         names.append(station.name)
-        risk_level.append(station.flood_risk())
+        risk_level.append(flood_risk(station))
+        oned_perc_change.append(increase_rate(station))
     for i in range(len(risk_level)):
         if risk_level[i] == 'severe risk':
-            plt.plot(x_coords[i],y_coords[i],'k.')
-            if stations[i].town not in reported_towns:
-                reported_towns.append(stations[i].town)
-                plt.annotate(stations[i].town,(x_coords[i],y_coords[i]),fontsize=7)
+            severe_risk_coords[0].append(stations[i].coord[1])
+            severe_risk_coords[1].append(stations[i].coord[0])
+            towns_severe_risk.append(stations[i].town)
         elif risk_level[i] == 'high risk':
-            plt.plot(x_coords[i],y_coords[i],'r.')
+            high_risk_coords[0].append(stations[i].coord[1])
+            high_risk_coords[1].append(stations[i].coord[0])
+            towns_high_risk.add(stations[i].town)
         elif risk_level[i] == 'moderate risk':
-            plt.plot(x_coords[i],y_coords[i],'y.')
+            med_risk_coords[0].append(stations[i].coord[1])
+            med_risk_coords[1].append(stations[i].coord[0])
         elif risk_level[i] == 'low risk':
-            plt.plot(x_coords[i],y_coords[i],'g.')
-        #plt.annotate(names[i],(x_coords[i],y_coords[i]),fontsize=7)
+            low_risk_coords[0].append(stations[i].coord[1])
+            low_risk_coords[1].append(stations[i].coord[0])
+    plt.plot(low_risk_coords[0],low_risk_coords[1],'g.',label="Low")    
+    plt.plot(med_risk_coords[0],med_risk_coords[1],'y.',label="Medium")
+    plt.plot(high_risk_coords[0],high_risk_coords[1],'ro',label="High")
+    plt.plot(severe_risk_coords[0],severe_risk_coords[1],'kD',label="Severe")
+    plt.title(f"Flood Risk Based on Current Relative Level: {len(risk_level)} stations\nSevere risk town(s): {towns_severe_risk}")   
+    plt.legend()
+    colours = percent_to_hexcol(oned_perc_change)
+    col_patches = [mpatches.Patch(color='#118f24',label="< -40%"),
+                mpatches.Patch(color='#14f514',label="~ -20%"),
+                mpatches.Patch(color='#b9f514',label="~ -10%"),
+                mpatches.Patch(color='#edf514',label="~ 0%"),
+                mpatches.Patch(color='#f5c114',label="~ 10%"),
+                mpatches.Patch(color='#f57914',label="~ 20%"),
+                mpatches.Patch(color='#f53614',label="~ 40%"),
+                mpatches.Patch(color='#a61111',label="~ 60%"),
+                mpatches.Patch(color='#540606',label="> 80%")]
+    plt.subplot(122)
+    plt.imshow(map_, extent=[-8,1.9,50,59])
+    for i in range(len(colours)):
+        plt.plot(stations[i].coord[1],stations[i].coord[0],color=colours[i],marker="o")    
+    print(f'Severe risk towns: {towns_severe_risk}')
+    print(f'High risk towns: {towns_high_risk}')
+    plt.legend(handles=col_patches)
+    high_per_station = stations.pop(oned_perc_change.index(max(oned_perc_change))).town
+    high_per_station2 = stations.pop(oned_perc_change.index(max(oned_perc_change))).town
+    high_per_station3 = stations.pop(oned_perc_change.index(max(oned_perc_change))).town
+    plt.title(f"Predicted Percentage Increase in Next 24 Hours: {len(risk_level)} stations\nHighest risk towns:{high_per_station},{high_per_station2},{high_per_station3}")
     plt.show()
+
+
