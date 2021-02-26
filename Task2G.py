@@ -8,7 +8,10 @@ from floodsystem.flood import flood_risk
 import datetime
 
 def run():
-    """Requirements for Task2G"""
+    """We have added a function to the submodule flood that gives a risk level for each station based on the curent 
+    relative water level. We then showed the 50 stations with the highest relative water level on a map of the UK 
+    and listed the current risk level of the 10 highest. We also created another function that predicts the change 
+    in water level in the next 24 hours and also plots it on a map of the UK.""" 
 
     #build list of stations
     stations = build_station_list()
@@ -19,10 +22,7 @@ def run():
     stations = remove_latest_level_nonetype(stations)
     print(len(stations))
     
-    """We have added a function to the submodule flood that gives a risk level for each station based on the curent 
-    relative water level. We then showed the 50 stations with the highest relative water level on a map of the UK 
-    and listed the current risk level of the 10 highest. We also created another function that predicts the change 
-    in water level in the next 24 hours and also plots it on a map of the UK."""  
+     
 
     #Gather the 10 stations with the highest relative water level
     highest_rellevel_stations = stations_highest_rel_level(stations,N=50)
